@@ -2,167 +2,181 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CriaFacil.ai - Gerador Completo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CriaFacil.ai</title>
   <style>
+    * { box-sizing: border-box; }
     body {
-      font-family: Arial, sans-serif;
-      background: #f0f2f5;
       margin: 0;
-      padding: 0;
-      color: #222;
+      font-family: 'Arial', sans-serif;
+      background: #f0f2f5;
+      color: #333;
     }
-    .container {
-      max-width: 700px;
-      margin: 40px auto;
-      background: white;
-      padding: 30px;
-      border-radius: 8px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
-    }
-    h1 {
-      color: #007bff;
-      text-align: center;
-    }
-    label {
-      font-weight: bold;
-      margin-top: 20px;
-      display: block;
-    }
-    input, textarea {
-      width: 100%;
-      padding: 12px;
-      margin-top: 8px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-    }
-    textarea {
-      min-height: 100px;
-      resize: vertical;
-    }
-    .btn {
+    header {
       background: #007bff;
       color: white;
-      border: none;
-      padding: 14px;
-      margin-top: 20px;
-      width: 100%;
-      font-size: 16px;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    .btn:hover {
-      background: #0056b3;
-    }
-    .output {
-      background: #f9f9f9;
-      border: 1px solid #ddd;
-      border-radius: 6px;
       padding: 15px;
-      margin-top: 12px;
-      white-space: pre-wrap;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
     }
-    img {
-      display: block;
-      max-width: 100%;
-      border-radius: 8px;
+    nav {
+      display: flex;
+      background: #0056b3;
+      overflow-x: auto;
+    }
+    nav button {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      background: #0056b3;
+      color: white;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    nav button:hover, nav button.active {
+      background: #003d80;
+    }
+    .section {
+      display: none;
+      padding: 20px;
+      max-width: 700px;
+      margin: auto;
+      background: white;
       margin-top: 20px;
+      border-radius: 8px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-    footer {
-      margin-top: 40px;
-      text-align: center;
-      font-size: 14px;
-      color: #666;
-      border-top: 1px solid #ccc;
-      padding-top: 12px;
+    .section.active { display: block; }
+    input, textarea, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 16px;
     }
+    textarea { resize: vertical; }
+    img { margin-top: 20px; max-width: 100%; border-radius: 8px; }
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      padding: 15px;
+      font-size: 14px;
+      background: #eee;
+    }
+    .output { margin-top: 10px; background: #f8f8f8; padding: 10px; border-radius: 5px; white-space: pre-wrap; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>CriaFacil.ai</h1>
+  <header>CriaFacil.ai</header>
+  <nav>
+    <button onclick="trocarAba('ideia')" class="active">Ideias de Vídeo</button>
+    <button onclick="trocarAba('descricao')">Descrições</button>
+    <button onclick="trocarAba('imagem')">Imagens</button>
+    <button onclick="trocarAba('termos')">Lista de Termos</button>
+    <button onclick="trocarAba('personagem')">Personagem</button>
+    <button onclick="trocarAba('jogo')">Ideia de Jogo/App</button>
+  </nav>
 
-    <!-- Gerador de Ideia -->
-    <label for="temaIdeia">Tema para ideia de vídeo:</label>
-    <input id="temaIdeia" type="text" placeholder="Ex: futebol, receitas..." />
-    <button class="btn" onclick="gerarIdeia()">Gerar Ideia</button>
-    <div id="saidaIdeia" class="output"></div>
-
-    <!-- Gerador de Descrição -->
-    <label for="temaDescricao">Ideia para gerar descrição:</label>
-    <textarea id="temaDescricao" placeholder="Ex: Como fazer pizza caseira"></textarea>
-    <button class="btn" onclick="gerarDescricao()">Gerar Descrição</button>
-    <div id="saidaDescricao" class="output"></div>
-
-    <!-- Gerador de Imagem -->
-    <label for="temaImagem">Tema para gerar imagem:</label>
-    <input id="temaImagem" type="text" placeholder="Ex: natureza, comida..." />
-    <button class="btn" onclick="gerarImagem()">Gerar Imagem</button>
-    <img id="imagemGerada" alt="Imagem gerada" />
-
-    <footer>
-      Todos os direitos reservados © criafacil.ai — @caiquetrenzinhos
-    </footer>
+  <div class="section active" id="ideia">
+    <h2>🎬 Ideias de Vídeo</h2>
+    <input id="temaIdeia" placeholder="Ex: receitas, futebol...">
+    <button onclick="gerarIdeia()">Gerar Ideia</button>
+    <div class="output" id="saidaIdeia"></div>
   </div>
 
+  <div class="section" id="descricao">
+    <h2>📝 Gerador de Descrição</h2>
+    <textarea id="temaDescricao" placeholder="Digite sua ideia aqui..."></textarea>
+    <button onclick="gerarDescricao()">Gerar Descrição</button>
+    <div class="output" id="saidaDescricao"></div>
+  </div>
+
+  <div class="section" id="imagem">
+    <h2>🖼️ Gerador de Imagem</h2>
+    <input id="temaImagem" placeholder="Tema da imagem...">
+    <button onclick="gerarImagem()">Gerar Imagem</button>
+    <img id="imagemGerada" alt="Imagem gerada">
+  </div>
+
+  <div class="section" id="termos">
+    <h2>📋 Lista de Termos</h2>
+    <div class="output" id="saidaTermos"></div>
+  </div>
+
+  <div class="section" id="personagem">
+    <h2>👤 Gerador de Personagem</h2>
+    <button onclick="gerarPersonagem()">Criar Personagem</button>
+    <div class="output" id="saidaPersonagem"></div>
+  </div>
+
+  <div class="section" id="jogo">
+    <h2>🎮 Ideia de Jogo ou App</h2>
+    <button onclick="gerarJogo()">Gerar Ideia</button>
+    <div class="output" id="saidaJogo"></div>
+  </div>
+
+  <footer>
+    Todos os direitos reservados © criafacil.ai — @caiquetrenzinhos
+  </footer>
+
   <script>
+    function trocarAba(id) {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      event.target.classList.add('active');
+    }
+
     function gerarIdeia() {
       const tema = document.getElementById('temaIdeia').value.trim();
-      const saida = document.getElementById('saidaIdeia');
-
-      if (!tema) {
-        alert('Digite um tema!');
-        return;
-      }
-
-      const titulos = [
-        `5 Ideias incríveis sobre ${tema}`,
-        `Como se destacar com ${tema}`,
-        `Dicas rápidas sobre ${tema}`,
+      const ideias = [
+        `5 dicas práticas sobre ${tema}`,
         `O que ninguém te contou sobre ${tema}`,
-        `${tema} em menos de 1 minuto!`
+        `Transforme sua rotina com ${tema}`,
+        `Comecei a fazer ${tema} e olha no que deu...`,
+        `Como ganhar dinheiro com ${tema}`
       ];
-      const passos = [
-        `Mostre um tutorial passo a passo sobre ${tema}.`,
-        `Demonstre erros comuns que as pessoas cometem com ${tema}.`,
-        `Use imagens e efeitos para deixar o vídeo sobre ${tema} mais interessante.`,
-        `Compartilhe sua experiência pessoal com ${tema}.`
-      ];
-
-      const titulo = titulos[Math.floor(Math.random() * titulos.length)];
-      const ideia = passos[Math.floor(Math.random() * passos.length)];
-
-      saida.textContent = `🎬 Título do vídeo:\n${titulo}\n\n📌 O que fazer no vídeo:\n${ideia}`;
+      document.getElementById('saidaIdeia').textContent = ideias[Math.floor(Math.random() * ideias.length)];
     }
 
     function gerarDescricao() {
-      const ideia = document.getElementById('temaDescricao').value.trim();
-      const saida = document.getElementById('saidaDescricao');
-
-      if (!ideia) {
-        alert('Digite uma ideia!');
-        return;
-      }
-
-      const hashtags = `#${ideia.replace(/\s+/g, '')} #criação #video #criador #ideia`;
-
-      saida.textContent = `Neste vídeo, vamos explorar: ${ideia}.\n\nDicas, técnicas e muito mais pra te ajudar a criar conteúdo incrível sobre esse tema.\n\nSe inscreve, deixa o like e compartilha!\n\n${hashtags}`;
+      const tema = document.getElementById('temaDescricao').value.trim();
+      const hashtags = tema.split(' ').map(t => `#${t}`).join(' ');
+      document.getElementById('saidaDescricao').textContent = `Neste vídeo vamos falar sobre ${tema}. Deixe seu like, compartilhe e comente!\n\n${hashtags}`;
     }
 
     function gerarImagem() {
-      const temaImg = document.getElementById('temaImagem').value.trim() || 'paisagem';
+      const tema = document.getElementById('temaImagem').value.trim() || 'natureza';
       const img = document.getElementById('imagemGerada');
-
-      const url = `https://source.unsplash.com/600x400/?${encodeURIComponent(temaImg)}&sig=${Math.floor(Math.random() * 10000)}`;
-
-      img.src = url;
-
+      img.src = `https://source.unsplash.com/600x400/?${encodeURIComponent(tema)}&sig=${Math.random() * 1000}`;
       img.onerror = () => {
         img.src = 'https://via.placeholder.com/600x400?text=Imagem+Indisponível';
       };
     }
+
+    function gerarPersonagem() {
+      const nomes = ['Zé das Kombi', 'MC Pipoca', 'Dona Cleusa', 'Professor Bizarro'];
+      const estilos = ['fala gírias', 'é todo sério', 'usa fantasia', 'age como vilão de novela'];
+      const bordoes = ['"É o fim da picada!"', '"Confia no pai!"', '"Já dizia minha avó..."', '"Não esperava por essa!"'];
+      const nome = nomes[Math.floor(Math.random() * nomes.length)];
+      const estilo = estilos[Math.floor(Math.random() * estilos.length)];
+      const bordao = bordoes[Math.floor(Math.random() * bordoes.length)];
+      document.getElementById('saidaPersonagem').textContent = `Nome: ${nome}\nEstilo: ${estilo}\nBordão: ${bordao}`;
+    }
+
+    function gerarJogo() {
+      const ideias = [
+        'Um app que avisa quando seu crush está online.',
+        'Um jogo onde você só ganha se perder.',
+        'Um app que cria memes sozinho com fotos da galeria.',
+        'Jogo onde você gerencia um boteco e enfrenta clientes problemáticos.',
+        'App que simula a vida de um youtuber até a fama.'
+      ];
+      document.getElementById('saidaJogo').textContent = ideias[Math.floor(Math.random() * ideias.length)];
+    }
+
+    // Lista de termos aleatórios para exibir na aba "Lista de Termos"
+    document.getElementById('saidaTermos').textContent = `1. Futebol\n2. Comida\n3. Humor\n4. Tecnologia\n5. Música\n6. Sketche\n7. Desenho\n8. Vlog\n9. Receitas Rápidas\n10. Reacts`;
   </script>
 </body>
 </html>
