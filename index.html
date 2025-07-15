@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="pt-BR">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,6 +33,7 @@
       text-decoration: none;
       margin: 12px 0;
       transition: 0.2s;
+      cursor: pointer;
     }
     .sidebar a:hover {
       color: #00ffff;
@@ -41,13 +43,14 @@
       padding: 40px;
       flex-grow: 1;
     }
-    .terms {
+    .terms, .content-section {
       background-color: #111930;
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 0 10px #00ffff55;
       max-width: 600px;
       margin: auto;
+      margin-bottom: 30px;
     }
     button {
       background-color: #00aaff;
@@ -69,22 +72,61 @@
       color: #888;
     }
   </style>
+  <script>
+    function showSection(id) {
+      const sections = document.querySelectorAll('.content-section');
+      sections.forEach(section => section.style.display = 'none');
+      document.getElementById(id).style.display = 'block';
+    }
+    window.onload = () => {
+      showSection('ideias');
+    }
+  </script>
 </head>
 <body>
   <div class="sidebar">
     <h2>CriaFacil.ai</h2>
-    <a href="#ideias">Ideias de Vídeo</a>
-    <a href="#descricao">Descrição de Vídeo</a>
-    <a href="#personagem">Gerador de Personagem</a>
-    <a href="#jogo">Gerador de Jogo/App</a>
-    <a href="#prompt">Gerador de Prompts</a>
-  </div>  <div class="main">
+    <a onclick="showSection('ideias')">Ideias de Vídeo</a>
+    <a onclick="showSection('descricao')">Descrição de Vídeo</a>
+    <a onclick="showSection('personagem')">Gerador de Personagem</a>
+    <a onclick="showSection('jogo')">Gerador de Jogo/App</a>
+    <a onclick="showSection('prompt')">Gerador de Prompts</a>
+  </div>
+
+  <div class="main">
     <div class="terms">
       <h2>Termos de uso</h2>
       <p>Este site é apenas para fins criativos e educativos. Ao usar, você concorda em não copiar ou distribuir os geradores para fins comerciais sem autorização.</p>
       <button onclick="document.querySelector('.terms').style.display='none'">Concordo</button>
     </div>
-  </div>  <footer>
+
+    <div id="ideias" class="content-section" style="display:none">
+      <h2>Gerador de Ideias de Vídeo</h2>
+      <p>Em breve...</p>
+    </div>
+
+    <div id="descricao" class="content-section" style="display:none">
+      <h2>Gerador de Descrição de Vídeo</h2>
+      <p>Em breve...</p>
+    </div>
+
+    <div id="personagem" class="content-section" style="display:none">
+      <h2>Gerador de Personagem</h2>
+      <p>Em breve...</p>
+    </div>
+
+    <div id="jogo" class="content-section" style="display:none">
+      <h2>Gerador de Jogo/App</h2>
+      <p>Em breve...</p>
+    </div>
+
+    <div id="prompt" class="content-section" style="display:none">
+      <h2>Gerador de Prompts para ChatGPT</h2>
+      <p>Em breve...</p>
+    </div>
+  </div>
+
+  <footer>
     Todos os direitos reservados CriaFacil.ai &nbsp;&nbsp; @caiquetrenzinhos
   </footer>
 </body>
