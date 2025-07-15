@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+<!DOCTYPE html><html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,6 +51,9 @@
       margin: auto;
       margin-bottom: 30px;
     }
+    .content-section {
+      display: none;
+    }
     button {
       background-color: #00aaff;
       color: white;
@@ -76,11 +78,16 @@
     function showSection(id) {
       const sections = document.querySelectorAll('.content-section');
       sections.forEach(section => section.style.display = 'none');
-      document.getElementById(id).style.display = 'block';
+      const selected = document.getElementById(id);
+      if (selected) selected.style.display = 'block';
     }
-    window.onload = () => {
+    function concordar() {
+      document.querySelector('.terms').style.display = 'none';
       showSection('ideias');
     }
+    window.onload = () => {
+      // nada visível até clicar em "Concordo"
+    };
   </script>
 </head>
 <body>
@@ -91,42 +98,37 @@
     <a onclick="showSection('personagem')">Gerador de Personagem</a>
     <a onclick="showSection('jogo')">Gerador de Jogo/App</a>
     <a onclick="showSection('prompt')">Gerador de Prompts</a>
-  </div>
-
-  <div class="main">
+  </div>  <div class="main">
     <div class="terms">
       <h2>Termos de uso</h2>
       <p>Este site é apenas para fins criativos e educativos. Ao usar, você concorda em não copiar ou distribuir os geradores para fins comerciais sem autorização.</p>
-      <button onclick="document.querySelector('.terms').style.display='none'">Concordo</button>
-    </div>
+      <button onclick="concordar()">Concordo</button>
+    </div><div id="ideias" class="content-section">
+  <h2>Gerador de Ideias de Vídeo</h2>
+  <p>Em breve...</p>
+</div>
 
-    <div id="ideias" class="content-section" style="display:none">
-      <h2>Gerador de Ideias de Vídeo</h2>
-      <p>Em breve...</p>
-    </div>
+<div id="descricao" class="content-section">
+  <h2>Gerador de Descrição de Vídeo</h2>
+  <p>Em breve...</p>
+</div>
 
-    <div id="descricao" class="content-section" style="display:none">
-      <h2>Gerador de Descrição de Vídeo</h2>
-      <p>Em breve...</p>
-    </div>
+<div id="personagem" class="content-section">
+  <h2>Gerador de Personagem</h2>
+  <p>Em breve...</p>
+</div>
 
-    <div id="personagem" class="content-section" style="display:none">
-      <h2>Gerador de Personagem</h2>
-      <p>Em breve...</p>
-    </div>
+<div id="jogo" class="content-section">
+  <h2>Gerador de Jogo/App</h2>
+  <p>Em breve...</p>
+</div>
 
-    <div id="jogo" class="content-section" style="display:none">
-      <h2>Gerador de Jogo/App</h2>
-      <p>Em breve...</p>
-    </div>
+<div id="prompt" class="content-section">
+  <h2>Gerador de Prompts para ChatGPT</h2>
+  <p>Em breve...</p>
+</div>
 
-    <div id="prompt" class="content-section" style="display:none">
-      <h2>Gerador de Prompts para ChatGPT</h2>
-      <p>Em breve...</p>
-    </div>
-  </div>
-
-  <footer>
+  </div>  <footer>
     Todos os direitos reservados CriaFacil.ai &nbsp;&nbsp; @caiquetrenzinhos
   </footer>
 </body>
