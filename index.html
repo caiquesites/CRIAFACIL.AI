@@ -1,135 +1,211 @@
-<!DOCTYPE html><html lang="pt-BR">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CriaFacil.ai</title>
   <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #0a0f1f;
+      font-family: 'Segoe UI', sans-serif;
+      background: #0b0f1a;
       color: #ffffff;
       display: flex;
     }
-    .sidebar {
+    aside {
       width: 220px;
-      background-color: #0e1530;
+      background: #071122;
       padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
       height: 100vh;
       position: fixed;
-      left: 0;
-      top: 0;
-      box-shadow: 2px 0 10px rgba(0, 255, 255, 0.2);
     }
-    .sidebar h2 {
+    aside button {
+      background: #003366;
       color: #00ffff;
-      margin-top: 0;
-      font-size: 22px;
-    }
-    .sidebar a {
-      display: block;
-      color: #ffffff;
-      text-decoration: none;
-      margin: 12px 0;
-      transition: 0.2s;
+      border: none;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 15px;
       cursor: pointer;
+      transition: 0.2s;
     }
-    .sidebar a:hover {
-      color: #00ffff;
+    aside button:hover {
+      background: #0055aa;
     }
-    .main {
+    main {
       margin-left: 240px;
-      padding: 40px;
-      flex-grow: 1;
+      padding: 30px;
+      flex: 1;
     }
-    .terms, .content-section {
-      background-color: #111930;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px #00ffff55;
-      max-width: 600px;
-      margin: auto;
-      margin-bottom: 30px;
-    }
-    .content-section {
+    section {
       display: none;
     }
-    button {
-      background-color: #00aaff;
-      color: white;
+    section.active {
+      display: block;
+    }
+    .card {
+      background: #111d2e;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,255,255,0.2);
+      margin-bottom: 20px;
+    }
+    input, textarea, button {
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
       border: none;
-      padding: 12px 20px;
-      border-radius: 8px;
+      border-radius: 5px;
       font-size: 16px;
+    }
+    button {
+      background: #00aaff;
+      color: white;
+      font-weight: bold;
+      margin-top: 15px;
       cursor: pointer;
-      margin-top: 20px;
     }
     button:hover {
-      background-color: #0088cc;
+      background: #0099dd;
     }
-    footer {
-      text-align: center;
-      padding: 20px;
-      font-size: 14px;
-      color: #888;
+    .output {
+      margin-top: 10px;
+      white-space: pre-wrap;
     }
   </style>
-  <script>
-    function showSection(id) {
-      const sections = document.querySelectorAll('.content-section');
-      sections.forEach(section => section.style.display = 'none');
-      const selected = document.getElementById(id);
-      if (selected) selected.style.display = 'block';
-    }
-    function concordar() {
-      document.querySelector('.terms').style.display = 'none';
-      showSection('ideias');
-    }
-    window.onload = () => {
-      // nada visível até clicar em "Concordo"
-    };
-  </script>
 </head>
 <body>
-  <div class="sidebar">
-    <h2>CriaFacil.ai</h2>
-    <a onclick="showSection('ideias')">Ideias de Vídeo</a>
-    <a onclick="showSection('descricao')">Descrição de Vídeo</a>
-    <a onclick="showSection('personagem')">Gerador de Personagem</a>
-    <a onclick="showSection('jogo')">Gerador de Jogo/App</a>
-    <a onclick="showSection('prompt')">Gerador de Prompts</a>
-  </div>  <div class="main">
-    <div class="terms">
-      <h2>Termos de uso</h2>
-      <p>Este site é apenas para fins criativos e educativos. Ao usar, você concorda em não copiar ou distribuir os geradores para fins comerciais sem autorização.</p>
-      <button onclick="concordar()">Concordo</button>
-    </div><div id="ideias" class="content-section">
-  <h2>Gerador de Ideias de Vídeo</h2>
-  <p>Em breve...</p>
-</div>
+  <aside>
+    <button onclick="mostrar('termos')">🔒 Termos</button>
+    <button onclick="mostrar('ideias')">🎬 Ideias de Vídeo</button>
+    <button onclick="mostrar('descricoes')">📝 Descrições</button>
+    <button onclick="mostrar('termosLista')">📋 Lista de Termos</button>
+    <button onclick="mostrar('personagem')">👤 Personagem</button>
+    <button onclick="mostrar('jogo')">🎮 Jogo/App</button>
+    <button onclick="mostrar('prompt')">⚙️ Prompts para ChatGPT</button>
+  </aside>
 
-<div id="descricao" class="content-section">
-  <h2>Gerador de Descrição de Vídeo</h2>
-  <p>Em breve...</p>
-</div>
+  <main>
+    <section id="termos" class="active">
+      <div class="card">
+        <h2>🔒 Termos de Uso</h2>
+        <p>Ao continuar neste site, você concorda em usar as ferramentas apenas para fins educacionais e criativos. O uso mal-intencionado é proibido.</p>
+        <button onclick="aceitarTermos()">Concordo com os Termos</button>
+      </div>
+    </section>
 
-<div id="personagem" class="content-section">
-  <h2>Gerador de Personagem</h2>
-  <p>Em breve...</p>
-</div>
+    <section id="ideias">
+      <div class="card">
+        <h2>🎬 Gerador de Ideias de Vídeo</h2>
+        <input id="temaIdeia" placeholder="Digite um tema">
+        <button onclick="gerarIdeia()">Gerar</button>
+        <div class="output" id="saidaIdeia"></div>
+      </div>
+    </section>
 
-<div id="jogo" class="content-section">
-  <h2>Gerador de Jogo/App</h2>
-  <p>Em breve...</p>
-</div>
+    <section id="descricoes">
+      <div class="card">
+        <h2>📝 Gerador de Descrição</h2>
+        <textarea id="temaDescricao" placeholder="Sobre o que é o vídeo..."></textarea>
+        <button onclick="gerarDescricao()">Gerar</button>
+        <div class="output" id="saidaDescricao"></div>
+      </div>
+    </section>
 
-<div id="prompt" class="content-section">
-  <h2>Gerador de Prompts para ChatGPT</h2>
-  <p>Em breve...</p>
-</div>
+    <section id="termosLista">
+      <div class="card">
+        <h2>📋 Lista de Termos</h2>
+        <div class="output">
+          1. Futebol<br>
+          2. Comédia<br>
+          3. Música<br>
+          4. Vlog<br>
+          5. Receitas<br>
+          6. DIY<br>
+          7. React<br>
+          8. Desenho<br>
+          9. Dança<br>
+          10. Esporte
+        </div>
+      </div>
+    </section>
 
-  </div>  <footer>
-    Todos os direitos reservados CriaFacil.ai &nbsp;&nbsp; @caiquetrenzinhos
-  </footer>
+    <section id="personagem">
+      <div class="card">
+        <h2>👤 Gerador de Personagem</h2>
+        <button onclick="gerarPersonagem()">Criar</button>
+        <div class="output" id="saidaPersonagem"></div>
+      </div>
+    </section>
+
+    <section id="jogo">
+      <div class="card">
+        <h2>🎮 Gerador de Jogo ou App</h2>
+        <button onclick="gerarJogo()">Gerar</button>
+        <div class="output" id="saidaJogo"></div>
+      </div>
+    </section>
+
+    <section id="prompt">
+      <div class="card">
+        <h2>⚙️ Gerador de Prompt para ChatGPT</h2>
+        <input id="temaPrompt" placeholder="Tema do prompt">
+        <button onclick="gerarPrompt()">Gerar Prompt</button>
+        <div class="output" id="saidaPrompt"></div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    let aceitou = false;
+    function mostrar(id) {
+      if (!aceitou && id !== 'termos') return;
+      document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+    function aceitarTermos() {
+      aceitou = true;
+      mostrar('ideias');
+    }
+    function gerarIdeia() {
+      const tema = document.getElementById('temaIdeia').value;
+      const ideias = [
+        `Como fazer ${tema} em casa`,
+        `Erros comuns em ${tema}`,
+        `Top 5 curiosidades sobre ${tema}`
+      ];
+      document.getElementById('saidaIdeia').textContent = ideias[Math.floor(Math.random() * ideias.length)];
+    }
+    function gerarDescricao() {
+      const tema = document.getElementById('temaDescricao').value;
+      const tags = tema.split(' ').map(p => `#${p}`).join(' ');
+      document.getElementById('saidaDescricao').textContent = `Hoje vamos falar sobre ${tema}. Deixe seu like!\n${tags}`;
+    }
+    function gerarPersonagem() {
+      const nomes = ['Zé Turbo', 'Luna Glitch', 'Capitão Pixel'];
+      const estilos = ['usa óculos de VR', 'fala como robô', 'sempre ri alto'];
+      const bordoes = ['"É hora do bug!"', '"Vapo digital!"', '"Carregando vitória..."'];
+      const nome = nomes[Math.floor(Math.random() * nomes.length)];
+      const estilo = estilos[Math.floor(Math.random() * estilos.length)];
+      const bordao = bordoes[Math.floor(Math.random() * bordoes.length)];
+      document.getElementById('saidaPersonagem').textContent = `Nome: ${nome}\nEstilo: ${estilo}\nBordão: ${bordao}`;
+    }
+    function gerarJogo() {
+      const ideias = [
+        'Um app que gera desculpas para faltar na aula.',
+        'Jogo onde você é um entregador de pizza em Marte.',
+        'App que detecta fake news em tempo real.'
+      ];
+      document.getElementById('saidaJogo').textContent = ideias[Math.floor(Math.random() * ideias.length)];
+    }
+    function gerarPrompt() {
+      const tema = document.getElementById('temaPrompt').value;
+      const prompt = `Crie ideias criativas e completas sobre ${tema}, no estilo explicativo, envolvente e fácil de entender. Liste em tópicos e use linguagem acessível.`;
+      document.getElementById('saidaPrompt').textContent = prompt;
+    }
+  </script>
 </body>
 </html>
